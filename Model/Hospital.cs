@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
 {
@@ -11,15 +6,15 @@ namespace Model
     public class Hospital : Base
     {
         [Column("razao_social")]
-        public string RazaoSocial;
+        public string RazaoSocial { get; set; }
 
         [Column("cnpj")]
-        public string Cnpj;
+        public string Cnpj { get; set; }
 
         [Column("faturamento")]
-        public decimal Faturamento;
+        public decimal Faturamento { get; set; }
 
         [Column("particular")]
-        public bool Particular;
+        public bool Particular { get; set; }
     }
 }

@@ -31,11 +31,11 @@ namespace View.Controllers
             // que foi persistido no banco de dados.
             return Json(hospital);
         }
-
+    
         public JsonResult ObterTodos()
         {
             List<Hospital> hospitais = repository.ObtertTodos("");
-            return Json(hospitais);
+            return Json(hospitais , JsonRequestBehavior.AllowGet);
         }
     }
 }
