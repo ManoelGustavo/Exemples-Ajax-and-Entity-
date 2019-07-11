@@ -22,12 +22,30 @@ namespace Repository.Repositories
 
         public bool Alterar(Hospital hospital)
         {
-            throw new NotImplementedException();
+            Hospital hospitalOriginal = (from x in context.Hospitais where x.Id == hospital.Id select x).FirstOrDefault();
+            if (hospitalOriginal == null)
+            {
+                return false;
+            }
+            hospitalOriginal.RazaoSocial = hospital.RazaoSocial;
+            hospitalOriginal.Particular = hospital.Particular;
+            hospitalOriginal.Faturamento = hospital.Faturamento;
+            context.SaveChanges();
+            return true;
         }
 
         public bool Apagar(int id)
-        {
-            throw new NotImplementedException();
+        {   
+            //linq
+            Hospital hospital = (from hospitais in context.Hospitais where hospitais.Id == id select hospitais).FirstOrDefault();
+
+            if (hospital == null)
+            {
+                return false;
+            }
+            hospital.RegistroAivo = false;
+            context.SaveChanges();
+            return true;
         }
 
         public int Inserir(Hospital hospital)
@@ -39,12 +57,13 @@ namespace Repository.Repositories
 
         public Hospital ObterPeloId(int id)
         {
-            throw new NotImplementedException();
+            return (from hospital in context.Hospitais where hospital.Id == id select hospital).FirstOrDefault();
         }
 
         public List<Hospital> ObtertTodos(string busca)
         {
-            throw new NotImplementedException();
+            busca = ($"%{busca}%");
+            return (from hospital in context.Hospitais where hospital.RazaoSocial.Contains(busca) || hospital.Cnpj.Contains(busca) orderby hospital.RazaoSocial select hospital).ToList();
         }
     }
 }
